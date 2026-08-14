@@ -1045,6 +1045,10 @@
   document.querySelectorAll(".current-year").forEach(function (element) {
     element.textContent = new Date().getFullYear();
   });
+  function toggleMenu() {
+    const menu = document.getElementById("navlinks");
+    menu.classList.toggle("active");
+  }
 </script>
   
 <script src="js/main.js"></script>
