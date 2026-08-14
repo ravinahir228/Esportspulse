@@ -2006,3 +2006,292 @@ footer::before,
     display: none;
   }
 }
+/* =========================================================
+   ESPORTSPULSE — PREMIUM NEWS SECTION
+   ========================================================= */
+
+.news-section {
+  position: relative;
+  background:
+    radial-gradient(
+      circle at 5% 20%,
+      rgba(57, 255, 136, 0.035),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 95% 80%,
+      rgba(41, 168, 255, 0.035),
+      transparent 30%
+    );
+}
+
+/* ---------- FEATURED NEWS ---------- */
+
+.featured-news {
+  margin-bottom: 22px;
+}
+
+.featured-news-card {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.055),
+      rgba(255,255,255,0.015)
+    );
+
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.35);
+
+  transition: 250ms ease;
+}
+
+.featured-news-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(57,255,136,0.3);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.45),
+    0 0 40px rgba(57,255,136,0.06);
+}
+
+.featured-news-image {
+  position: relative;
+  min-height: 330px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 65% 40%,
+      rgba(41,168,255,0.22),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 30% 70%,
+      rgba(57,255,136,0.12),
+      transparent 35%
+    ),
+    #05080d;
+}
+
+.featured-news-image::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+}
+
+.featured-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(0,0,0,0.15)
+    );
+}
+
+.featured-placeholder {
+  position: relative;
+  z-index: 2;
+
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 950;
+  letter-spacing: -3px;
+
+  color: rgba(255,255,255,0.1);
+
+  text-shadow:
+    0 0 35px rgba(41,168,255,0.12);
+}
+
+.news-live-badge {
+  position: absolute;
+
+  top: 18px;
+  left: 18px;
+
+  z-index: 5;
+
+  padding: 6px 9px;
+
+  color: #fff;
+
+  background: rgba(255,54,95,0.9);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  border-radius: 6px;
+
+  font-size: 0.67rem;
+  font-weight: 900;
+
+  box-shadow:
+    0 0 20px rgba(255,54,95,0.2);
+}
+
+.featured-game {
+  position: absolute;
+
+  right: 18px;
+  top: 18px;
+
+  z-index: 5;
+
+  padding: 6px 9px;
+
+  color: #39ff88;
+
+  background: rgba(5,8,13,0.7);
+
+  border: 1px solid rgba(57,255,136,0.2);
+
+  border-radius: 6px;
+
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+}
+
+.featured-news-content {
+  padding: 38px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-news-content h3 {
+  margin: 4px 0 15px;
+
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  line-height: 1.1;
+
+  letter-spacing: -1px;
+}
+
+.featured-news-content p {
+  color: #aeb7c4;
+
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+/* ---------- NEWS IMAGE BADGE ---------- */
+
+.news-image {
+  position: relative;
+}
+
+.news-image .news-live-badge {
+  top: 13px;
+  left: 13px;
+}
+
+/* ---------- NEWS CARDS ---------- */
+
+.news-card {
+  overflow: hidden;
+}
+
+.news-card .news-image {
+  min-height: 205px;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(41,168,255,0.13),
+      transparent 45%
+    ),
+    #070b11;
+}
+
+.news-card:nth-child(2n) .news-image {
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(57,255,136,0.11),
+      transparent 45%
+    ),
+    #070b11;
+}
+
+.news-card:nth-child(3n) .news-image {
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(155,108,255,0.12),
+      transparent 45%
+    ),
+    #070b11;
+}
+
+.news-card .big-word {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 950;
+  letter-spacing: -2px;
+}
+
+/* ---------- NEWS CARD HOVER ---------- */
+
+.news-card:hover .big-word {
+  color: rgba(255,255,255,0.15);
+
+  transform: scale(1.04);
+
+  transition: 300ms ease;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 760px) {
+
+  .featured-news-card {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-news-image {
+    min-height: 240px;
+  }
+
+  .featured-news-content {
+    padding: 24px;
+  }
+
+  .featured-news-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .featured-news-content p {
+    font-size: 0.85rem;
+  }
+
+}
