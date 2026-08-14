@@ -1,20 +1,16 @@
 // =====================================================
-// ESPORTSPULSE — LIVE NEWS LOADER
+// ESPORTSPULSE — LIVE NEWS DISPLAY
+// Reads news from data/news.json
 // =====================================================
 
-const NEWS_API_URL = "https://newsapi.org/v2/everything";
-
-const NEWS_QUERY =
-  '"PUBG Mobile" OR BGMI OR PMWC OR "Esports World Cup" OR ' +
-  'VALORANT OR "Dota 2" OR "Mobile Legends" OR "FC Mobile" OR ' +
-  '"esports chess" OR "GTA esports"';
+document.addEventListener("DOMContentLoaded", loadEsportsNews);
 
 async function loadEsportsNews() {
 
   const newsGrid = document.querySelector(".news-grid");
 
   if (!newsGrid) {
-    console.error("News grid not found.");
+    console.error("EsportsPulse: .news-grid not found.");
     return;
   }
 
@@ -28,44 +24,50 @@ async function loadEsportsNews() {
   try {
 
     const response = await fetch(
-      `${NEWS_API_URL}?q=${encodeURIComponent(NEWS_QUERY)}&language=en&sortBy=publishedAt&pageSize=12`
+      `data/news.json?cache=${Date.now()}`
     );
 
     if (!response.ok) {
-      throw new Error("News API request failed.");
+      throw new Error("Unable to load news.json");
     }
 
     const data = await response.json();
 
-    if (data.status !== "ok") {
-      throw new Error(data.message || "Unable to load news.");
+    if (!data.articles || !Array.isArray(data.articles)) {
+      throw new Error("Invalid news data");
     }
 
-    const articles = data.articles || [];
+    const articles = data.articles
+      .filter(article => article.title && article.url)
+      .slice(0, 12);
 
     if (articles.length === 0) {
+
       newsGrid.innerHTML = `
         <div class="news-error">
-          <h3>No latest news found.</h3>
+          <h3>No news available</h3>
           <p>Please check again shortly.</p>
         </div>
       `;
+
       return;
     }
 
     newsGrid.innerHTML = articles
-      .filter(article => article.title && article.url)
-      .map(article => createNewsCard(article))
+      .map(createNewsCard)
       .join("");
 
   } catch (error) {
 
-    console.error("EsportsPulse News Error:", error);
+    console.error(
+      "EsportsPulse News Error:",
+      error
+    );
 
     newsGrid.innerHTML = `
       <div class="news-error">
         <h3>News temporarily unavailable</h3>
-        <p>Please try again later.</p>
+        <p>Please try refreshing the page.</p>
       </div>
     `;
   }
@@ -78,7 +80,9 @@ async function loadEsportsNews() {
 
 function createNewsCard(article) {
 
-  const title = escapeHTML(article.title || "Latest Esports News");
+  const title = escapeHTML(
+    article.title || "Latest Esports News"
+  );
 
   const description = escapeHTML(
     article.description ||
@@ -86,14 +90,15 @@ function createNewsCard(article) {
   );
 
   const source = escapeHTML(
-    article.source?.name || "News Source"
+    article.source?.name ||
+    "Esports Source"
   );
 
-  const image = article.urlToImage
-    ? article.urlToImage
-    : "";
+  const image = article.urlToImage;
 
-  const publishedTime = formatDate(article.publishedAt);
+  const date = formatDate(
+    article.publishedAt
+  );
 
   return `
     <article class="news-card live-news-card">
@@ -107,7 +112,11 @@ function createNewsCard(article) {
 
         <div
           class="news-image live-news-image"
-          ${image ? `style="background-image:url('${image}')"` : ""}
+          ${
+            image
+              ? `style="background-image:url('${escapeAttribute(image)}')"`
+              : ""
+          }
         >
 
           <div class="live-news-overlay"></div>
@@ -120,7 +129,14 @@ function createNewsCard(article) {
             ${source}
           </span>
 
+          ${
+            !image
+              ? `<div class="news-image-placeholder">🎮</div>`
+              : ""
+          }
+
         </div>
+
 
         <div class="news-body">
 
@@ -143,7 +159,7 @@ function createNewsCard(article) {
             </span>
 
             <span>
-              ${publishedTime}
+              ${date}
             </span>
 
           </div>
@@ -169,6 +185,10 @@ function formatDate(dateString) {
 
   const date = new Date(dateString);
 
+  if (Number.isNaN(date.getTime())) {
+    return "Latest";
+  }
+
   return date.toLocaleString("en-IN", {
     day: "numeric",
     month: "short",
@@ -180,7 +200,7 @@ function formatDate(dateString) {
 
 
 // =====================================================
-// SECURITY — ESCAPE TEXT
+// SECURITY HELPERS
 // =====================================================
 
 function escapeHTML(text) {
@@ -194,11 +214,12 @@ function escapeHTML(text) {
 }
 
 
-// =====================================================
-// START
-// =====================================================
+function escapeAttribute(text) {
 
-document.addEventListener(
-  "DOMContentLoaded",
-  loadEsportsNews
-);
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
