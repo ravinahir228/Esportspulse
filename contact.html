@@ -1,1 +1,627 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us | EsportsPulse</title>
+
+    <meta
+        name="description"
+        content="Contact EsportsPulse for esports news corrections, partnerships, feedback and general inquiries."
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Cloudflare Turnstile -->
+    <script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer>
+    </script>
+
+    <style>
+        .contact-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 110px 20px 80px;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .contact-header .eyebrow {
+            color: #39ff88;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .contact-header h1 {
+            margin: 12px 0;
+            font-size: clamp(2.3rem, 6vw, 4.2rem);
+        }
+
+        .contact-header p {
+            max-width: 650px;
+            margin: auto;
+            color: #9ca6b5;
+            line-height: 1.8;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 25px;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 22px;
+            padding: 35px;
+        }
+
+        .contact-card h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .contact-card p {
+            color: #aeb7c4;
+            line-height: 1.8;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            margin-top: 25px;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(57,255,136,0.08);
+            border: 1px solid rgba(57,255,136,0.18);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-item h3 {
+            margin: 0 0 5px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .contact-item p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .contact-item a {
+            color: #39ff88;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: #dce2ea;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.2);
+            color: #fff;
+            outline: none;
+            font: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #39ff88;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .turnstile-box {
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .contact-form button {
+            border: 0;
+            border-radius: 12px;
+            padding: 14px 20px;
+            background: #39ff88;
+            color: #07100b;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: 0.2s ease;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-1px);
+        }
+
+        .contact-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-status {
+            display: none;
+            padding: 13px 15px;
+            border-radius: 10px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .form-status.success {
+            display: block;
+            background: rgba(57,255,136,0.08);
+            border: 1px solid rgba(57,255,136,0.2);
+            color: #39ff88;
+        }
+
+        .form-status.error {
+            display: block;
+            background: rgba(255,70,70,0.08);
+            border: 1px solid rgba(255,70,70,0.2);
+            color: #ff8b8b;
+        }
+
+        .contact-note {
+            margin-top: 20px;
+            color: #7f8997;
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .legal-footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #7f8997;
+        }
+
+        .legal-footer a {
+            color: #9da7b5;
+            margin: 0 8px;
+            text-decoration: none;
+        }
+
+        .legal-footer a:hover {
+            color: #39ff88;
+        }
+
+        @media (max-width: 800px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="site-header">
+        <div class="container">
+
+            <a href="index.html" class="logo">
+                EP <span>EsportsPulse</span>
+            </a>
+
+            <a href="index.html" class="btn btn-secondary">
+                ← Back to Home
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- CONTACT PAGE -->
+
+    <main class="contact-page">
+
+        <div class="contact-header">
+
+            <div class="eyebrow">
+                ESPORTSPULSE CONTACT
+            </div>
+
+            <h1>Get In Touch</h1>
+
+            <p>
+                Have a question, correction, partnership idea or
+                esports-related inquiry? We'd love to hear from you.
+            </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+            <!-- CONTACT INFORMATION -->
+
+            <section class="contact-card">
+
+                <h2>Contact EsportsPulse</h2>
+
+                <p>
+                    Reach out to the EsportsPulse team for general
+                    questions, feedback, corrections, collaborations
+                    and other inquiries.
+                </p>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">✉️</div>
+
+                    <div>
+                        <h3>Email</h3>
+
+                        <p>
+                            <a href="mailto:esportspulse.in@gmail.com">
+                                esportspulse.in@gmail.com
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">📰</div>
+
+                    <div>
+                        <h3>News & Corrections</h3>
+
+                        <p>
+                            Found incorrect or outdated esports
+                            information? Send us the details and
+                            we'll review it.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">🤝</div>
+
+                    <div>
+                        <h3>Partnerships</h3>
+
+                        <p>
+                            For esports partnerships, collaborations
+                            and business inquiries, contact us by email.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">🔒</div>
+
+                    <div>
+                        <h3>Privacy Requests</h3>
+
+                        <p>
+                            For privacy or personal-data related
+                            requests, please use the same email address.
+                        </p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- CONTACT FORM -->
+
+            <section class="contact-card">
+
+                <h2>Send Us a Message</h2>
+
+                <form id="contact-form" class="contact-form">
+
+                    <div class="form-group">
+
+                        <label for="name">Name</label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Your name"
+                            autocomplete="name"
+                            maxlength="100"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">Email</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            maxlength="254"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="topic">Inquiry Type</label>
+
+                        <select id="topic" name="topic">
+
+                            <option value="General Question">
+                                General Question
+                            </option>
+
+                            <option value="News Correction">
+                                News Correction
+                            </option>
+
+                            <option value="Partnership">
+                                Partnership
+                            </option>
+
+                            <option value="Business Inquiry">
+                                Business Inquiry
+                            </option>
+
+                            <option value="Privacy Request">
+                                Privacy Request
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="message">Message</label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Write your message..."
+                            maxlength="5000"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- CLOUDFLARE TURNSTILE -->
+
+                    <div class="turnstile-box">
+
+                        <div
+                            class="cf-turnstile"
+                            data-sitekey="0x4AAAAAAEPtrLICnkBgd0Xy">
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="form-status"
+                        class="form-status"
+                        role="alert">
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="submit-button">
+                        Send Message →
+                    </button>
+
+                </form>
+
+
+                <p class="contact-note">
+                    For your security, please do not send passwords,
+                    payment information or other highly sensitive
+                    personal information through this form.
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="legal-footer">
+
+        <p>
+            © 2026 EsportsPulse. All rights reserved.
+        </p>
+
+        <div>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+
+    </footer>
+
+
+    <!-- CONTACT FORM JAVASCRIPT -->
+
+    <script>
+        const form = document.getElementById("contact-form");
+        const statusBox = document.getElementById("form-status");
+        const submitButton = document.getElementById("submit-button");
+
+        form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            statusBox.className = "form-status";
+            statusBox.textContent = "";
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+
+            try {
+
+                const formData = new FormData(form);
+
+                const turnstileToken =
+                    formData.get("cf-turnstile-response");
+
+                if (!turnstileToken) {
+
+                    throw new Error(
+                        "Please complete the security verification."
+                    );
+
+                }
+
+                const response = await fetch("/api/contact", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        name: formData.get("name"),
+
+                        email: formData.get("email"),
+
+                        topic: formData.get("topic"),
+
+                        message: formData.get("message"),
+
+                        token: turnstileToken
+
+                    })
+
+                });
+
+
+                const result = await response.json();
+
+
+                if (!response.ok || !result.success) {
+
+                    throw new Error(
+                        result.error ||
+                        "Unable to send your message."
+                    );
+
+                }
+
+
+                statusBox.className =
+                    "form-status success";
+
+                statusBox.textContent =
+                    "✓ Your message has been sent successfully. We'll get back to you soon.";
+
+                form.reset();
+
+                if (
+                    window.turnstile &&
+                    typeof window.turnstile.reset === "function"
+                ) {
+                    window.turnstile.reset();
+                }
+
+            } catch (error) {
+
+                statusBox.className =
+                    "form-status error";
+
+                statusBox.textContent =
+                    "✕ " + error.message;
+
+                if (
+                    window.turnstile &&
+                    typeof window.turnstile.reset === "function"
+                ) {
+                    window.turnstile.reset();
+                }
+
+            } finally {
+
+                submitButton.disabled = false;
+                submitButton.textContent = "Send Message →";
+
+            }
+
+        });
+    </script>
+
+</body>
+</html>
